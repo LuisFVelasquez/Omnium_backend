@@ -7,6 +7,7 @@ const resolversAuth = {
     registro: async (parent, args) => {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(args.password, salt);
+           
       const usuarioCreado = await UserModel.create({
         nombre: args.nombre,
         apellido: args.apellido,
@@ -16,7 +17,7 @@ const resolversAuth = {
         estado: args.estado,
         password: hashedPassword,
       });
-      console.log('usuario creado', usuarioCreado);
+      console.log('Usuario creado', usuarioCreado);
       return {
         token: generateToken({
           _id: usuarioCreado._id,
